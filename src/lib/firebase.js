@@ -16,7 +16,7 @@ firebase.initializeApp(config)
 
 // This is our firebaseui configuration object
 const uiConfig = ({
-  signInSuccessUrl: '/',
+  signInSuccessUrl: '/trello',
   signInOptions: [
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
   ],
