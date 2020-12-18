@@ -34,18 +34,34 @@ const Home = () => {
   const renderBoards = () => boards.map(board => (
     <h3 style={{color: 'blue', textDecoration: 'underline', cursor: 'pointer'}} onClick={() => {
       dispatch(setBoardAction(board));
-      history.push('/board')
+      history.push(`/board/${board._id}`)
     }}>
       {board.name}
     </h3>
   ))
 
+  const onCreateBoard = async () => {
+    const boardName = prompt('enter board name', '');
+    await api.createBoard(boardName);
+    setLoading(true);
+    const b = await api.fetchBoards();
+    setBoards(b);
+    setLoading(false);
+  }
+
   return (
     <Layout>
-      <h1>TRELLO</h1>
-      <h3>{email}</h3>
+      <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+        <h1>TRELLO</h1>
+        <button onClick={logout} style={{color: 'red', paddingLeft: 10, paddingRight: 10}}>Log out</button>
+      </div>
+      <h3 style={{paddingBottom: 30}}>{email}</h3>
+      <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+
+        <h3 style={{paddingRight: 20}}>Your boards:</h3>
+        <button onClick={onCreateBoard} style={{color: 'green', paddingLeft: 10, paddingRight: 10}}>CREATE BOARD+</button>
+      </div>
       {renderBoards()}
-      <button onClick={logout} style={{color: 'red'}}>Log out</button>
     </Layout>
   );
 };

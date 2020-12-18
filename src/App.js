@@ -37,7 +37,7 @@ function App() {
       return (
         <Switch>
           <Route path="/home" component={Home}/>
-          <Route path="/board" component={Board}/>
+          <Route path="/board/:id" component={Board}/>
           <Route path="*" render={() => <Redirect to="/home" />}/>
         </Switch>
       )

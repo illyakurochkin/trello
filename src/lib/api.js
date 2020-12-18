@@ -19,7 +19,12 @@ const updateBoard = async (board) => {
   await api.post(`/boards/${board._id}`, board);
 }
 
+const createBoard = async (name) => {
+  return api.post('/boards', {name})
+};
+
 export default {
+  createBoard,
   fetchBoards,
   updateBoard,
 }

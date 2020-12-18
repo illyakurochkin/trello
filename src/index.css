@@ -36,3 +36,14 @@ code {
 .firebaseui-idp-text-short {
   display: none;
 }
+
+.react-kanban-column-header {
+  display:  flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.react-kanban-card {
+  display: flex;
+  flex-direction: column;
+}
