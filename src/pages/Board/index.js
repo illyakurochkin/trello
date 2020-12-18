@@ -28,6 +28,11 @@ const Board = () => {
     return <Redirect to="/home" />
   }
 
+  function onCardNew (n) {
+    const newCard = { id: Math.random() * 10000, ...n }
+    return newCard
+  }
+
   return (
     <Layout>
       <h1>BOARD: {board.name}</h1>
@@ -41,6 +46,7 @@ const Board = () => {
         allowRemoveCard
         onCardRemove={onChange}
         allowAddCard={{on: 'top'}}
+        onNewCardConfirm={onCardNew} onCardNew={onChange}
       />
       <button onClick={() => history.push('/home')} style={{color: 'blue'}}>Home</button>
       <button onClick={logout} style={{color: 'red'}}>Log out</button>
