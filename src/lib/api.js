@@ -2,7 +2,7 @@ import axios from 'axios';
 import {getIdToken} from './firebase';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3001',
+  baseURL: window.location.hostname !== 'localhost' ? 'https://kma-trello.herokuapp.com' : 'http://localhost:3001',
 });
 
 api.interceptors.request.use(async (request) => {
