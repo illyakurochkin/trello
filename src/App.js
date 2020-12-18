@@ -1,6 +1,6 @@
 import './App.css';
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import {HashRouter, Route, Switch, Redirect} from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import {getAuthorizedEmail} from './lib/firebase';
@@ -53,9 +53,9 @@ function App() {
 
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       {renderSwitch()}
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
