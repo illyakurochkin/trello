@@ -10,6 +10,8 @@ const Members = ({members, onChange}) => {
       padding: 4,
       width: 500,
     }}>
+      <div><u>Members:</u>
+        </div>
       {members.map(member => (
         <div style={{
           display: 'flex',
@@ -23,7 +25,7 @@ const Members = ({members, onChange}) => {
           </span>
         </div>
       ))}
-      <span style={{cursor: 'pointer'}} onClick={() => {
+      <span style={{cursor: 'pointer', marginLeft: 0}} onClick={() => {
         const m = prompt('enter member name', '');
         if(m) {
           onChange([...members, m]);
