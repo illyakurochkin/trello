@@ -1,24 +1,61 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useEffect, useState} from 'react';
+import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+import Login from './pages/Login';
+import Home from './pages/Home';
+import {getAuthorizedEmail} from './lib/firebase';
+import {setUserAction} from './store/user';
+import {useDispatch} from 'react-redux';
+import Board from './pages/Board';
+import {Layout} from './components/Layout';
 
 function App() {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const e = await getAuthorizedEmail()
+      setEmail(e);
+      setLoading(false);
+
+      dispatch(setUserAction(e));
+    })()
+  }, []);
+
+  if(loading) {
+    return (
+      <Layout>
+        <div>LOADING...</div>
+      </Layout>
+    )
+  }
+
+  const renderSwitch = () => {
+    if(email) {
+      return (
+        <Switch>
+          <Route path="/home" component={Home}/>
+          <Route path="/board" component={Board}/>
+          <Route path="*" render={() => <Redirect to="/home" />}/>
+        </Switch>
+      )
+    }
+
+    return (
+      <Switch>
+        <Route path="/login" component={Login}/>
+        <Route path="*" render={() => <Redirect to="/login" />}/>
+      </Switch>
+    )
+  };
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      {renderSwitch()}
+    </BrowserRouter>
   );
 }
 
